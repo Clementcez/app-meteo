@@ -1,5 +1,6 @@
 <template>
-  <div v-if="info.name" class="content">
+<div class="resultats" id="resultats">
+  <div v-for="info of infos" class="content" :key="info.dt">
     <div v-if="info.weather[0].icon === iconList.snows.snow1 | info.weather[0].icon === iconList.snows.snow2" class="main">
       <Snow />
     </div>
@@ -12,7 +13,7 @@
     <div v-if="info.weather[0].icon === iconList.clouds.brokCloud1 | info.weather[0].icon === iconList.clouds.brokCloud2" class="main">
       <BrokClouds />
     </div>
-    <div v-if="info.weather[0].icon === iconList.clouds.fewCloud1 | info.weather[0].icon === iconList.clouds.fewCloud2" class="main">
+    <div v-if="info.weather[0].icon === iconList.clouds.fewCloud1 | info.weather[0].icon === iconList.clouds.fewCloud2" class="main main--mod">
       <FewClouds />
     </div>
     <div v-if="info.weather[0].icon === iconList.rains.rain1 | info.weather[0].icon === iconList.rains.rain2" class="main">
@@ -42,9 +43,9 @@
           <p>coucher de soleil {{info.sys.sunset}}</p>
         </div>
 
-        <div>
+        <div class="title">
           <h2>{{info.name}} {{info.sys.country}}</h2> 
-          {{info.coord.lon}} {{info.coord.lat}}
+          <cite>(Maj {{info.dt}})</cite>
         </div>
 
         <div class="condition temp">
@@ -64,6 +65,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -93,7 +95,8 @@ export default {
   },
 
   props: {
-    info: Object
+    anim: Object,
+    infos: Array
   },
 
   data(){
@@ -145,8 +148,20 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.resultats{
+  position: relative;
+}
+
 .content{
   position: relative;
+  width: 100%;
+  height: 40rem;
+  margin-bottom: 3rem;
+  border: solid 2px grey;
+  border-radius: 50px;
+  background: linear-gradient(rgb(80, 212, 252), rgb(201, 235, 245));
+  box-shadow: 0px 10px 13px -7px #000000;
+  transform-origin: top;
 }
 
 .main{
@@ -165,6 +180,12 @@ export default {
   margin-top: unset;
 }
 
+.title{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
 .data{
   width: 100%;
   position: absolute;
@@ -173,8 +194,10 @@ export default {
 }
 
 .data__condition{
+  width: 90%;
   display: flex;
   justify-content: space-between;
+  margin: auto;
 }
 
 .condition{

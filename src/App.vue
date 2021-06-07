@@ -1,9 +1,12 @@
 <template>
-  <div class="appContent">
-    <Banner v-bind:name="info.name"/>
-    <Search v-on:myevent="getApi"/>
-    <Content v-bind:info="info" />
-  </div>
+<div>
+    <div class="appContent">
+      <Banner v-bind:townName="townName"/>
+    </div>
+    <Search v-on:myevent="getApi" v-bind:state="state"/>
+    <Content v-bind:infos="infos" v-bind:anim="anim" />
+    <footer></footer>
+</div>
 </template>
 
 <script>
@@ -22,9 +25,18 @@ export default {
 
   data(){
     return {
-      info: {
-        name: null
-      }
+      townName: null,
+
+      state: {
+        recherche: false,
+        error: null,
+      },
+
+      anim:{
+        heightResult: 0
+      },
+
+      infos: []
     }
   },
   
@@ -43,61 +55,33 @@ export default {
       })
       .then(response =>{
         if(response.status === 200){
-          this.info = response.data
-          console.log(this.info)
-          this.convertVisibility(response.data.visibility)
-          this.convertDate(response.data.sys.sunrise, response.data.sys.sunset)
-          this.convertWind(response.data.wind.deg)
+          this.townName = response.data.name
+          this.$store.dispatch('setDataMutation', response.data)
+          this.infos = this.$store.state.data
+          this.state.recherche = true
+          this.state.error = null
+          this.getCssElem()
         }
+      })
+      .catch(error =>{
+        this.state.error = error.message
       })
     },
 
-    convertVisibility(visibility){
-      if(visibility >= 5000){
-        this.info.visibility = 'bonne'
-      }
-      else if(visibility <= 5000 & visibility >= 2000){
-        this.info.visibility = 'moyenne'
-      }
-            else if(visibility <= 2000 & visibility >= 500){
-        this.info.visibility = 'mauvaise'
-      }
-            else if(visibility <= 500){
-        this.info.visibility = 'très mauvaise'
-      }
-    },
+    getCssElem : async function(){
+      await this.$nextTick()
+      const arrayElem = document.getElementsByClassName('content')
 
-    convertDate(sunrise, sunset){
-      const rise = new Date(sunrise * 1000)
-      const down = new Date(sunset * 1000)
-      this.info.sys.sunrise = rise.getHours() + ":" + rise.getMinutes()
-      this.info.sys.sunset = down.getHours() + ":" + down.getMinutes()
-    },
+      this.anim.heightResult = document.getElementById('resultats').offsetHeight - arrayElem[0].offsetHeight
+      const animTranslateY = 'translateY(-' + this.anim.heightResult + 'px)'
 
-    convertWind(deg){
-      if(deg >= 337.5 & deg <= 22.5){
-        this.info.wind.deg = 'Nord'
-      }
-      else if(deg >= 22.5 & deg <= 67.5){
-        this.info.wind.deg = 'Nord-Est'
-      }
-      else if(deg >= 67.5 & deg <= 112.5){
-        this.info.wind.deg = 'Est'
-      }
-      else if(deg >= 112.5 & deg <= 157.5){
-        this.info.wind.deg = 'Sud-Est'
-      }
-      else if(deg >= 157.5 & deg <= 202.5){
-        this.info.wind.deg = 'Sud'
-      }
-      else if(deg >= 202.5 & deg <= 247.5){
-        this.info.wind.deg = 'Sud-Ouest'
-      }
-      else if(deg >= 247.5 & deg <= 292.5){
-        this.info.wind.deg = 'Ouest'
-      }
-      else if(deg >= 292.5 & deg <= 337.5){
-        this.info.wind.deg = 'Nord-Ouest'
+      if(arrayElem.length >= 2){
+        arrayElem[arrayElem.length - 1].animate([
+          { transform: animTranslateY },
+          { transform: 'translateY(0px)' }
+        ], {duration: 1500, easing: 'ease-in-out', fill: 'both' })
+
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
       }
     }
   }
@@ -116,16 +100,19 @@ body{
   height: 800px;
   border: solid 2px grey;
   border-radius: 50px;
-  background-color: rgb(201, 235, 245);
+  background: linear-gradient(rgb(80, 212, 252), rgb(201, 235, 245));
   box-shadow: 0px 10px 13px -7px #000000;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
 .appContent{
   margin: 2rem;
+}
+
+footer{
+  height: 8rem;
 }
 </style>
