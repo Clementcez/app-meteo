@@ -1,11 +1,13 @@
 <template>
 <div>
     <div class="appContent">
-      <Banner v-bind:townName="townName"/>
+      <Banner />
     </div>
     <Search v-on:myevent="getApi" v-bind:state="state"/>
-    <Content v-bind:infos="infos" v-bind:anim="anim" />
-    <footer></footer>
+    <Content v-bind:infos="infos" />
+    <MenuAncre v-bind:infos="infos" />
+    <div class="miseEnPage"></div>
+    <Footer />
 </div>
 </template>
 
@@ -13,6 +15,8 @@
 import Banner from './components/Banner.vue'
 import Search from './components/Search'
 import Content from './components/Content.vue'
+import MenuAncre from './components/MenuAncre.vue'
+import Footer from './components/Footer.vue'
 import axios from 'axios'
 
 export default {
@@ -20,13 +24,13 @@ export default {
   components: {
     Search,
     Content,
-    Banner
+    MenuAncre,
+    Banner,
+    Footer
   },
 
   data(){
     return {
-      townName: null,
-
       state: {
         recherche: false,
         error: null,
@@ -38,6 +42,10 @@ export default {
 
       infos: []
     }
+  },
+
+  mounted () {
+    window.addEventListener('scroll', this.handleScroll);
   },
   
   methods:{
@@ -70,18 +78,44 @@ export default {
 
     getCssElem : async function(){
       await this.$nextTick()
+
       const arrayElem = document.getElementsByClassName('content')
+      const arrayAncre = document.getElementsByClassName('lienAncre')
+
+      const heightAncre = document.getElementById('menuAncre').offsetHeight - arrayAncre[0].offsetHeight
+      const animAncreTranslateY = 'translateY(' + heightAncre + 'px)'
 
       this.anim.heightResult = document.getElementById('resultats').offsetHeight - arrayElem[0].offsetHeight
       const animTranslateY = 'translateY(-' + this.anim.heightResult + 'px)'
 
+      if(arrayAncre.length >= 2){
+        arrayAncre[arrayAncre.length - 1].animate([
+          { transform: animAncreTranslateY },
+          { transform: 'translateY(0px)' }
+        ], {duration: 500, easing: 'ease-in-out', fill: 'both' })
+      }
+
       if(arrayElem.length >= 2){
         arrayElem[arrayElem.length - 1].animate([
-          { transform: animTranslateY },
-          { transform: 'translateY(0px)' }
-        ], {duration: 1500, easing: 'ease-in-out', fill: 'both' })
+          { transform: animTranslateY, opacity: 0 },
+          { transform: 'translateY(0px)', opacity: 1 }
+        ], {duration: 1000, easing: 'ease-in-out', fill: 'both' })
 
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+      }
+      else{
+        window.scrollTo({ top: 400, behavior: 'smooth' })
+      }
+    },
+
+    handleScroll(){
+      const arrowTop = document.getElementById("arrowTop");
+
+      if(window.scrollY > 300){
+        arrowTop.style.display = "block";
+      }
+      else{
+        arrowTop.style.display = "none";
       }
     }
   }
@@ -94,15 +128,19 @@ body{
   justify-content: center;
 }
 
+a{
+  text-decoration: none;
+}
+
 #app {
-  width: 1000px;
+  width: 60%;
   max-width: 1000px;
   height: 800px;
   border: solid 2px grey;
   border-radius: 50px;
   background: linear-gradient(rgb(80, 212, 252), rgb(201, 235, 245));
   box-shadow: 0px 10px 13px -7px #000000;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Lemonada', cursive, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -112,7 +150,41 @@ body{
   margin: 2rem;
 }
 
-footer{
-  height: 8rem;
+.miseEnPage{
+  width: 100%;
+  height: 5rem;
+}
+
+@media (max-width: 1200px) {
+    #app{
+      width: 70%;
+    }
+}
+
+@media (max-width: 1024px) {
+    #app{
+      width: 70%;
+      font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #app{
+      width: 85%;
+    }
+}
+
+@media (max-width: 600px) {
+    body{
+      margin: unset;
+    }
+
+    #app{
+      min-height: 100vh;
+      width: 100%;
+      border: unset;
+      border-radius: unset;
+      box-shadow: unset;
+    }
 }
 </style>

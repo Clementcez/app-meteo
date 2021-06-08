@@ -46,10 +46,15 @@ input{
 }
 
 button{
+    font-family: 'Lemonada', cursive, Arial, sans-serif;
     cursor: pointer;
     width: 8rem;
-    height: 2rem;
     border-radius: 1rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+button:hover{
+    transform: scale(1.1);
 }
 
 .error{
@@ -88,6 +93,18 @@ button{
 
     100%{
         transform: translateX(0);
+    }
+}
+
+@media (max-width: 1440px) {
+    form{
+      width: 90%;
+    }
+}
+
+@media (max-width: 425px) {
+    input{
+        margin: unset;
     }
 }
 </style>

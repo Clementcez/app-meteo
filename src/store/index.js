@@ -14,6 +14,8 @@ export default createStore({
   actions: {
     setDataMutation({commit}, dataBrut){
 
+      dataBrut.sys.id = Date.now()
+
       const maj = new Date(dataBrut.dt * 1000)
       const heures = maj.getHours() >= 10 ? maj.getHours() : ('0' + maj.getHours())
       const minutes = maj.getMinutes() >= 10 ? maj.getMinutes() : ('0' + maj.getMinutes())

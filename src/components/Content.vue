@@ -1,6 +1,6 @@
 <template>
 <div class="resultats" id="resultats">
-  <div v-for="info of infos" class="content" :key="info.dt">
+  <div v-for="info of infos" class="content" :key="info.sys.id" :id="info.sys.id">
     <div v-if="info.weather[0].icon === iconList.snows.snow1 | info.weather[0].icon === iconList.snows.snow2" class="main">
       <Snow />
     </div>
@@ -16,7 +16,7 @@
     <div v-if="info.weather[0].icon === iconList.clouds.fewCloud1 | info.weather[0].icon === iconList.clouds.fewCloud2" class="main main--mod">
       <FewClouds />
     </div>
-    <div v-if="info.weather[0].icon === iconList.rains.rain1 | info.weather[0].icon === iconList.rains.rain2" class="main">
+    <div v-if="info.weather[0].icon === iconList.rains.rain1 | info.weather[0].icon === iconList.rains.rain2" class="main main--mod">
       <Rain />
     </div>
     <div v-if="info.weather[0].icon === iconList.clouds.scatCloud1 | info.weather[0].icon === iconList.clouds.scatCloud2" class="main">
@@ -35,10 +35,9 @@
         <div class="condition">
           <h3>Conditions</h3>
           <p>{{info.weather[0].description}}</p>
-          <p v-if="info.rain">{{info.rain}}</p>
           <p >visibilité {{info.visibility}}</p>
           <p>humidité {{info.main.humidity}} %</p>
-          <p>pression atmosphérique {{info.main.pressure}} hPa</p>
+          <p>pression at* {{info.main.pressure}} hPa</p>
           <p>lever du soleil {{info.sys.sunrise}}</p>
           <p>coucher de soleil {{info.sys.sunset}}</p>
         </div>
@@ -95,7 +94,6 @@ export default {
   },
 
   props: {
-    anim: Object,
     infos: Array
   },
 
@@ -154,7 +152,6 @@ export default {
 
 .content{
   position: relative;
-  width: 100%;
   height: 40rem;
   margin-bottom: 3rem;
   border: solid 2px grey;
@@ -212,7 +209,49 @@ export default {
 }
 
 .vent{
-  margin-top: 8rem;
+  margin-top: unset;
   align-self: center;
+}
+
+@media (max-width: 1024px) {
+
+  .data__condition{
+    width: 95%;
+  }
+
+  .condition{
+    margin-top: 8rem;
+  }
+
+  .vent{
+    margin-top: 2rem;
+  }
+
+  .title{
+    display: block;
+  }
+
+}
+
+@media (max-width: 1024px) {
+  .condition{
+    width: 35%;
+  }
+}
+
+@media (max-width: 600px) {
+  .data__condition{
+    width: 100%;
+  }
+
+  .title{
+    position: absolute;
+    right: 38%;
+  }
+
+  .condition{
+    width: 45%;
+    border-radius: 35px;
+  }
 }
 </style>
