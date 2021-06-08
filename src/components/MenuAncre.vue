@@ -1,16 +1,18 @@
 <template>
     <div class="menuAncre" id="menuAncre">
-        <a
-        class="lienAncre"
-        v-for="(info, index) in infos" 
-        :key="info.sys.id"
-        v-on:click.prevent="scrollTo(info.sys.id)"
-        >
-            <p class="titleLienAncre">
-                <span>{{index + 1}}</span>
-                <cite>: {{info.name}} (Maj {{info.dt}})</cite>
-            </p>
-        </a>
+        <div id="overFlow">
+            <a
+                class="lienAncre"
+                v-for="(info, index) in infos" 
+                :key="info.sys.id"
+                v-on:click.prevent="scrollTo(info.sys.id)"
+            >
+                <p class="titleLienAncre">
+                    <span>{{index + 1}}</span>
+                    <cite>: {{info.name}} (Maj {{info.dt}})</cite>
+                </p>
+            </a>
+        </div>
     </div>
 </template>
 
@@ -37,12 +39,7 @@ export default {
 
 <style scoped>
     .menuAncre{
-        display: flex;
-        flex-direction: column;
         position: fixed;
-        min-width: 14rem;
-        min-height: 1rem;
-        max-height: 800px;
         bottom: 0;
         left: 3%;
         padding-top: 1rem;
@@ -51,12 +48,23 @@ export default {
         border-top-left-radius: 50px;
         border: solid 2px grey;
         box-shadow: 0px -5px 13px -7px #000000;
-        overflow: scroll;
+    }
+
+    .menuAncre > div{
+        display: flex;
+        flex-direction: column;
+        min-width: 14rem;
+        min-height: 1rem;
+        max-height: 800px;
     }
 
     .lienAncre{
         cursor: pointer;
-        margin: 1rem;
+        margin: 0 1rem 0 1rem;
+    }
+
+    .overFlow{
+        overflow: auto;
     }
 
     @media (max-width: 1440px) {
@@ -67,6 +75,11 @@ export default {
 
     @media (max-width: 1200px) {
         .menuAncre{
+            min-width: 9rem;
+            width: 15%;
+        }
+
+        .menuAncre > div{
             min-width: 9rem;
             width: 15%;
         }
@@ -95,4 +108,12 @@ export default {
             display: none;
         }
     }
+
+    @media (max-width: 768px) {
+        .menuAncre > div{
+            max-height: 14rem;
+            overflow: auto;
+        }
+    }
+
 </style>

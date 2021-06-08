@@ -88,11 +88,16 @@ export default {
       this.anim.heightResult = document.getElementById('resultats').offsetHeight - arrayElem[0].offsetHeight
       const animTranslateY = 'translateY(-' + this.anim.heightResult + 'px)'
 
-      if(arrayAncre.length >= 2){
+      if(arrayAncre.length >= 2 && arrayAncre.length < 12){
         arrayAncre[arrayAncre.length - 1].animate([
           { transform: animAncreTranslateY },
           { transform: 'translateY(0px)' }
         ], {duration: 500, easing: 'ease-in-out', fill: 'both' })
+      }
+
+      if(arrayAncre.length >= 12){
+        const overFlow = document.getElementById('overFlow')
+        overFlow.classList.add('overFlow')
       }
 
       if(arrayElem.length >= 2){
