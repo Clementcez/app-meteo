@@ -67,7 +67,7 @@
     position: absolute;
     font-size: 250px;
     color: black;
-    animation: fewClouds 60s linear infinite;
+    animation: fewClouds 60s ease-in-out infinite;
 }
 
 .cloudIcon--mod{
@@ -76,12 +76,12 @@
 }
 
 .cloudIcon__right{
-    animation: fewCloudsRight 60s linear infinite;
+    animation: fewCloudsRight 60s ease-in-out infinite;
 }
 
 .cloudIcon__top{
     margin-bottom: 300px;
-    animation: fewCloudsTop 60s linear infinite;
+    animation: fewCloudsTop 60s ease-in-out infinite;
 }
 
 .bolt{
@@ -90,16 +90,16 @@
     color: yellow;
     margin-top: 400px;
     margin-left: 100px;
-    animation: fewClouds 60s linear infinite;
+    animation: fewClouds 60s ease-in-out infinite;
 }
 
 .bolt__left{
     margin-right: 200px;
-    animation: fewCloudsRight 60s linear infinite;
+    animation: fewCloudsRight 60s ease-in-out infinite;
 }
 
 .bolt__top{
     margin-bottom: 300px;
-    animation: fewCloudsTop 60s linear infinite;
+    animation: fewCloudsTop 60s ease-in-out infinite;
 }
 </style>

@@ -2,12 +2,12 @@
     <form v-on:submit.prevent="onSubmit">
         <div v-if="state.recherche">
             <label for="recherche">Choisir une autre ville</label>
-            <input id='recherche' type="text" placeholder="Ville">
+            <input v-model="name" id='recherche' type="text" placeholder="Ville">
             <p class="error" v-if="state.error">{{state.error}}</p>
         </div>
         <div v-else>
             <label for="recherche">Choisir une ville</label>
-            <input id='recherche' type="text" placeholder="Ville">
+            <input v-model="name" id='recherche' type="text" placeholder="Ville">
             <p class="error" v-if="state.error">{{state.error}}</p>
         </div>
         <button>Rechercher</button>
@@ -17,12 +17,20 @@
 <script>
 export default {
     name: 'Search',
+
+    data(){
+        return{
+            name: ''
+        }
+    },
+
     props: {
         state: Object
     },
 
     methods: {
         onSubmit(){
+            this.name = ""
             this.$emit('myevent')
         }
     }

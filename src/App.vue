@@ -191,5 +191,9 @@ a{
       border-radius: unset;
       box-shadow: unset;
     }
+
+    .miseEnPage{
+      height: 2rem;
+    }
 }
 </style>

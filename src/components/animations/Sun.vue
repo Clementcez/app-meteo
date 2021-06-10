@@ -105,6 +105,6 @@
 }
 
 .sun__rayon{
-  animation: rayonRotateInverse 60s infinite linear;
+  animation: rayonRotateInverse 60s infinite ease-in-out;
 }
 </style>

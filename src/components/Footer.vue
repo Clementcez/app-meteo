@@ -153,16 +153,16 @@ footer{
 
 @media (max-width: 600px) {
     footer{
-        width: 85%;
+        width: 70%;
         height: 3rem;
-        left: 8%;
+        left: 15%;
         border-top-right-radius: 20px;
         border-top-left-radius: 20px;
     }
 
     footer > div > p{
-        font-size: 0.6rem;
-    }
+        display: none;    
+    }       
 
     .heart{
         margin: 5px;
@@ -173,9 +173,14 @@ footer{
         width: 2rem;
     }
 
+    .initiales > p {
+        display: block;
+    }
+
     .stickBottom {
-        font-size: 30px;
+        font-size: 40px;
         bottom: -18px;
+        color: #41B883;
     }
 }
 </style>

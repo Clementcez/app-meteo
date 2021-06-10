@@ -94,18 +94,19 @@
 }
 
 .sun__rayon{
-  animation: rayonRotateInverse 60s infinite linear;
+  animation: rayonRotateInverse 60s infinite ease-in-out;
 }
 
 .cloudIcon{
     position: absolute;
     font-size: 250px;
     color: whitesmoke;
-    animation: fewClouds 60s linear infinite;
+    animation: fewClouds 60s ease-in-out infinite;
 }
 
 .cloudIcon--mod{
     margin-left: 40px;
     color: white;
 }
+
 </style>

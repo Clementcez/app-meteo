@@ -64,7 +64,7 @@
     position: absolute;
     font-size: 250px;
     color: beige;
-    animation: fewClouds 60s linear infinite;
+    animation: fewClouds 60s ease-in-out infinite;
 }
 
 .cloudIcon--mod{
@@ -73,11 +73,17 @@
 }
 
 .cloudIcon__right{
-    animation: fewCloudsRight 60s linear infinite;
+    animation: fewCloudsRight 60s ease-in-out infinite;
 }
 
 .cloudIcon__top{
     margin-bottom: 300px;
-    animation: fewCloudsTop 60s linear infinite;
+    animation: fewCloudsTop 60s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+    .cloudIcon{
+        font-size: 180px;
+    }
 }
 </style>

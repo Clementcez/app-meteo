@@ -8,7 +8,7 @@
         <i class="fas fa-cloud-showers-heavy cloudIcon cloudIcon__right"></i>
         <i class="fas fa-cloud-showers-heavy cloudIcon cloudIcon__right cloudIcon--mod"></i>
     </div>
-</template><i class="fas fa-cloud-showers-heavy"></i>
+</template>
 
 <style scoped>
 @keyframes sunRotate {
@@ -92,7 +92,7 @@
     position: absolute;
     font-size: 250px;
     color: black;
-    animation: fewClouds 60s linear infinite;
+    animation: fewClouds 60s ease-in-out infinite;
 }
 
 .cloudIcon--mod{
@@ -101,6 +101,6 @@
 }
 
 .cloudIcon__right{
-    animation: fewCloudsRight 60s linear infinite;
+    animation: fewCloudsRight 60s ease-in-out infinite;
 }
 </style>
