@@ -1,5 +1,5 @@
 <template>
-<div class="resultats" id="resultats">
+<div v-if="infos" class="resultats" id="resultats">
   <div v-for="info of infos" class="content" :key="info.sys.id" :id="info.sys.id">
     <div v-if="info.weather[0].icon === iconList.snows.snow1 | info.weather[0].icon === iconList.snows.snow2" class="main">
       <Snow />
@@ -181,6 +181,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: baseline;
+  max-width: 18rem;
 }
 
 .data{
@@ -206,6 +207,7 @@ export default {
   border-radius: 50px;
   box-shadow: 0px 10px 13px -7px #000000;
   text-align: center;
+  padding: 0 2px 0 2px;
 }
 
 .vent{
@@ -213,7 +215,31 @@ export default {
   align-self: center;
 }
 
+
+@media (max-width: 1440px) and (min-width: 600px) {
+  .title{
+    flex-direction: column;
+    max-width: 14rem;
+  }
+}
+
+@media (max-width: 1300px) {
+  .vent{
+    margin-top: -8%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .vent{
+    margin-top: 5rem;
+  }
+}
+
 @media (max-width: 1024px) {
+
+  .condition{
+    width: 35%;
+  }
 
   .data__condition{
     width: 95%;
@@ -233,12 +259,6 @@ export default {
 
 }
 
-@media (max-width: 1024px) {
-  .condition{
-    width: 35%;
-  }
-}
-
 @media (max-width: 600px) {
   .data__condition{
     width: 100%;
@@ -246,12 +266,16 @@ export default {
 
   .title{
     position: absolute;
-    right: 38%;
+    left: 20%;
   }
 
   .condition{
     width: 45%;
     border-radius: 35px;
+  }
+
+  .vent{
+    margin-top: 1rem;
   }
 }
 </style>

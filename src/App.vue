@@ -163,13 +163,13 @@ a{
 @media (max-width: 1200px) {
     #app{
       width: 70%;
+      font-size: 0.8rem;
     }
 }
 
 @media (max-width: 1024px) {
     #app{
       width: 70%;
-      font-size: 0.8rem;
     }
 }
 
@@ -182,6 +182,14 @@ a{
 @media (max-width: 600px) {
     body{
       margin: unset;
+    }
+
+    p{
+      margin: 5px 0 5px 0;
+    }
+
+    h2, h3{
+      margin: 10px 0 10px;
     }
 
     #app{
